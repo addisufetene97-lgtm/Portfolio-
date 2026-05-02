@@ -1,4 +1,4 @@
-# Addisu Fetene (Ada) - Portfolio
+# Addisu Fetene - Portfolio
 
 Welcome to my portfolio! I am an AI visual creator and professional video editor based in Ethiopia, specializing in high-retention short-form and YouTube content.
 
