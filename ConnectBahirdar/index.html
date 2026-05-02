@@ -220,7 +220,11 @@
 <label class="font-label-md text-label-md text-on-surface-variant" for="user-phone">የስልክ ቁጥር</label>
 <input class="w-full bg-surface-bright border-b border-outline-variant focus:border-primary focus:ring-0 px-2 py-2 text-on-surface font-body-md outline-none transition-colors" id="user-phone" name="phone" placeholder="09..." required="" type="tel"/>
 </div>
-<button class="mt-stack-sm w-full bg-[#25D366] text-white font-label-md text-label-md py-3 px-4 rounded flex items-center justify-center gap-2 hover:bg-[#1DA851] transition-colors active:scale-95 shadow-sm" type="submit">
+<div class="flex flex-col gap-unit">
+<label class="font-label-md text-label-md text-on-surface-variant" for="user-email">ኢሜይል (አማራጭ)</label>
+<input class="w-full bg-surface-bright border-b border-outline-variant focus:border-primary focus:ring-0 px-2 py-2 text-on-surface font-body-md outline-none transition-colors" id="user-email" name="email" placeholder="example@mail.com" type="email"/>
+</div>
+<button class="mt-stack-sm w-full bg-primary text-white font-label-md text-label-md py-3 px-4 rounded flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors active:scale-95 shadow-sm" type="submit">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
                     በዋትስአፕ ይላኩ
                 </button>
@@ -248,15 +252,52 @@
         modal.classList.add('hidden');
     });
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const profession = selectedProfessionInput.value;
         const name = document.getElementById('user-name').value;
         const phone = document.getElementById('user-phone').value;
+        const email = document.getElementById('user-email').value;
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        // Show loading state
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> በመላክ ላይ...';
+
+        // 1. Send data to Google Apps Script (AI System)
+        // REPLACE THE URL BELOW with your deployed Google Apps Script Web App URL
+        const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+        try {
+            if (scriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                await fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        source: 'website',
+                        profession: profession,
+                        name: name,
+                        phone: phone,
+                        email: email
+                    })
+                });
+            }
+        } catch (error) {
+            console.error('Error sending to AI System:', error);
+        }
+
+        // 2. Open WhatsApp (Secondary action)
         const whatsappNumber = "251943543986";
-        const message = `ሰላም ConnectBahirdar፣ አዲስ የጥገና ጥያቄ አለ፦\nባለሙያ፦ ${profession}\nስም፦ ${name}\nስልክ፦ ${phone}`;
+        const message = `ሰላም ConnectBahirdar፣ አዲስ የጥገና ጥያቄ አለ፦\nባለሙያ፦ ${profession}\nስም፦ ${name}\nስልክ፦ ${phone}${email ? `\nኢሜይል፦ ${email}` : ''}`;
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
+
+        // Reset form and close modal
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
         modal.classList.add('hidden');
         form.reset();
     });
