@@ -6,7 +6,7 @@
 
 1. [Google Apps Script](https://script.google.com/) ይክፈቱ።
 2. **"New Project"** የሚለውን ይጫኑ።
-3. በፕሮጀክቱ ውስጥ ያለውን ኮድ በሙሉ ያጥፉ እና በ `ConnectBahirdar/GAS_Setup.js` ውስጥ ያለውን ኮድ ኮፒ አድርገው ይለጥፉ።
+3. በፕሮጀክቱ ውስጥ ያለውን ኮድ በሙሉ ያጥፉ እና በ `automation/GAS_Setup.js` ውስጥ ያለውን ኮድ ኮፒ አድርገው ይለጥፉ።
 4. በኮዱ አናት ላይ (Configuration section) የሚከተሉትን ይተኩ፦
    - `GEMINI_API_KEY`: የእርስዎን የ Gemini API Key ይለጥፉ ([ከዚህ ያግኙ](https://aistudio.google.com/app/apikey))።
    - `TELEGRAM_BOT_TOKEN`: የእርስዎን የቴሌግራም ቦት ቶከን ይለጥፉ (ከ @BotFather ያገኙትን)።
@@ -23,7 +23,7 @@
 
 ## ደረጃ 3: ዌብሳይቱን ማገናኘት
 
-1. በ `ConnectBahirdar/index.html` ፋይል ውስጥ መስመር 278 አካባቢ የሚገኘውን `scriptUrl` የሚለውን ይፈልጉ።
+1. በ `index.html` ፋይል ውስጥ መስመር 278 አካባቢ የሚገኘውን `scriptUrl` የሚለውን ይፈልጉ።
 2. በደረጃ 2 ያገኙትን URL እዚያ ላይ ይተኩ (ከ `YOUR_GOOGLE_APPS_SCRIPT_URL_HERE` ይልቅ)።
 3. ፋይሉን ሴቭ አድርገው ወደ GitHub ይላኩ (Push)።
 
