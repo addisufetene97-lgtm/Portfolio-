@@ -1,6 +1,6 @@
 # የ ConnectBahirdar AI አውቶሜሽን አዘገጃጀት መመሪያ (Setup Instructions)
 
-ይህ መመሪያ በዌብሳይትዎ እና በቴሌግራም ቦትዎ የሚመጡ መረጃዎችን በራስ-ሰር እንዲመዘገቡ እና ማሳወቂያ እንዲደርስዎ ለማድረግ ይረዳል።
+ይህ መመሪያ በዌብሳይትዎ እና በቴሌግራም ቦትዎ የሚመጡ መረጃዎችን በራስ-ሰር በ Google Sheet ላይ እንዲመዘገቡ እና በ AI እንዲተነተኑ ለማድረግ ይረዳል።
 
 ## ደረጃ 1: Google Apps Script ማዘጋጀት
 
@@ -23,20 +23,20 @@
 
 ## ደረጃ 3: ዌብሳይቱን ማገናኘት
 
-1. በ `ConnectBahirdar/index.html` ፋይል ውስጥ መስመር 267 አካባቢ የሚገኘውን `YOUR_GOOGLE_APPS_SCRIPT_URL_HERE` የሚለውን ይፈልጉ።
-2. በደረጃ 2 ያገኙትን URL እዚያ ላይ ይተኩ።
+1. በ `ConnectBahirdar/index.html` ፋይል ውስጥ መስመር 278 አካባቢ የሚገኘውን `scriptUrl` የሚለውን ይፈልጉ።
+2. በደረጃ 2 ያገኙትን URL እዚያ ላይ ይተኩ (ከ `YOUR_GOOGLE_APPS_SCRIPT_URL_HERE` ይልቅ)።
 3. ፋይሉን ሴቭ አድርገው ወደ GitHub ይላኩ (Push)።
 
 ## ደረጃ 4: ቴሌግራም ቦቱን ማገናኘት (Webhook)
 
 1. በ Google Apps Script ኤዲተር ውስጥ ወደ ታች ወርደው `setWebhook` የሚለውን ፋንክሽን ይፈልጉ።
-2. `PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE` የሚለው ቦታ ላይ የእርስዎን Web App URL ይለጥፉ።
+2. `YOUR_WEB_APP_URL_HERE` የሚለው ቦታ ላይ የእርስዎን Web App URL ይለጥፉ።
 3. በላይ በኩል ካለው ዝርዝር ውስጥ `setWebhook` የሚለውን መርጠው **"Run"** ይጫኑ።
 4. አሁን ቦትዎ ላይ መልእክት ሲላክ ቀጥታ ወደ Google Sheet ይገባል!
 
-## ማሳሰቢያዎች
+## ሲስተሙ ምን ይሰራል?
 - **Google Sheets:** መጀመሪያ መልእክት ሲላክ ሲስተሙ ራሱ `ConnectBahirdar_DB` የሚል ፋይል በ Google Drive ላይ ይፈጥርልዎታል።
-- **Gmail:** ሲስተሙ በርስዎ ስም ለደንበኞች ኢሜይል እንዲልክ ፈቃድ መጠየቁ አይቀሬ ነው።
-- **PDF:** ለእያንዳንዱ ጥያቄ PDF ተዘጋጅቶ በ Google Drive ላይ ይቀመጣል።
+- **AI Intent:** Gemini AI ተጠቅሞ ጥያቄው "Demand" (ፈላጊ) ወይስ "Supply" (አቅራቢ) መሆኑን ይለያል።
+- **Success Message:** ዌብሳይቱ ላይ ደንበኛው መረጃ ሲሞላ "እናመሰግናለን! መረጃው ደርሶናል። በ 5 ደቂቃ ውስጥ እንደውልልሃለን።" የሚል መልእክት ያሳያል።
 
 ማንኛውም ችግር ካጋጠመዎት ይጠይቁኝ!

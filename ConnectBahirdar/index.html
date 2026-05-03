@@ -203,14 +203,15 @@
 </footer>
 <!-- Modal Overlay (Hidden by default, simulated logic via CSS target or JS if allowed, but JS is forbidden, so we will use a pure CSS toggle or just render it hidden for visual structure. The prompt says "JavaScript Logic", but global rules say "DO NOT add any JavaScript". I will render the modal visually as if open or hidden, depending on standard practice. I'll provide the modal HTML hidden.) -->
 <div class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-on-background/20 backdrop-blur-sm p-4" id="booking-modal">
-<div class="bg-surface border border-outline-variant rounded-xl w-full max-w-md p-stack-lg shadow-[0_8px_16px_rgba(0,0,0,0.08)] flex flex-col">
-<div class="flex justify-between items-center mb-stack-md border-b border-surface-variant pb-stack-sm">
-<h2 class="font-headline-md text-headline-md text-on-surface">እባክዎን ስም እና ስልክ ቁጥርዎን ያስገቡ</h2>
-<button aria-label="Close" class="text-on-surface-variant hover:text-on-surface p-1 rounded hover:bg-surface-container" type="button">
+<div class="bg-surface border border-outline-variant rounded-xl w-full max-w-md p-stack-lg shadow-[0_8px_16px_rgba(0,0,0,0.08)] flex flex-col relative">
+<button aria-label="Close" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface p-1 rounded hover:bg-surface-container" id="close-modal-btn" type="button">
 <span class="material-symbols-outlined">close</span>
 </button>
+<div id="modal-form-content">
+<div class="flex justify-between items-center mb-stack-md border-b border-surface-variant pb-stack-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">እባክዎን ስም እና ስልክ ቁጥርዎን ያስገቡ</h2>
 </div>
-<form class="flex flex-col gap-stack-md w-full">
+<form class="flex flex-col gap-stack-md w-full" id="booking-form">
 <input id="selected-profession" name="profession" type="hidden"/>
 <div class="flex flex-col gap-unit">
 <label class="font-label-md text-label-md text-on-surface-variant" for="user-name">የእርስዎ ስም</label>
@@ -225,32 +226,49 @@
 <input class="w-full bg-surface-bright border-b border-outline-variant focus:border-primary focus:ring-0 px-2 py-2 text-on-surface font-body-md outline-none transition-colors" id="user-email" name="email" placeholder="example@mail.com" type="email"/>
 </div>
 <button class="mt-stack-sm w-full bg-primary text-white font-label-md text-label-md py-3 px-4 rounded flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors active:scale-95 shadow-sm" type="submit">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
-                    በዋትስአፕ ይላኩ
+<span class="material-symbols-outlined">send</span>
+                    ጥያቄዬን ላክ
                 </button>
 </form>
 <div class="mt-stack-md pt-stack-sm border-t border-surface-variant text-center">
 <p class="font-body-md text-label-md text-on-surface-variant">በ 5 ደቂቃ ውስጥ እንደውልልዎታለን!</p>
 </div>
 </div>
+<div class="hidden text-center py-stack-lg" id="modal-success-content">
+<div class="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-stack-md">
+<span class="material-symbols-outlined text-4xl">check_circle</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">እናመሰግናለን!</h2>
+<p class="font-body-md text-on-surface-variant">መረጃው ደርሶናል። በ 5 ደቂቃ ውስጥ እንደውልልሃለን።</p>
+<button class="mt-stack-lg w-full bg-primary text-white font-label-md text-label-md py-3 px-4 rounded hover:bg-surface-tint transition-colors" id="success-close-btn">ዝጋ</button>
+</div>
+</div>
 </div>
 <script>
     const cards = document.querySelectorAll('.service-card');
     const modal = document.getElementById('booking-modal');
-    const closeBtn = modal.querySelector('button[aria-label="Close"]');
-    const form = modal.querySelector('form');
+    const closeBtn = document.getElementById('close-modal-btn');
+    const successCloseBtn = document.getElementById('success-close-btn');
+    const form = document.getElementById('booking-form');
+    const formContent = document.getElementById('modal-form-content');
+    const successContent = document.getElementById('modal-success-content');
     const selectedProfessionInput = document.getElementById('selected-profession');
 
     cards.forEach(card => {
         card.addEventListener('click', () => {
             selectedProfessionInput.value = card.getAttribute('data-profession');
+            formContent.classList.remove('hidden');
+            successContent.classList.add('hidden');
             modal.classList.remove('hidden');
         });
     });
 
-    closeBtn.addEventListener('click', () => {
+    const closeModal = () => {
         modal.classList.add('hidden');
-    });
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    successCloseBtn.addEventListener('click', closeModal);
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -266,10 +284,11 @@
         submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> በመላክ ላይ...';
 
         // 1. Send data to Google Apps Script (AI System)
+        // Note: The script URL will need to be updated by the user after deployment
         const scriptUrl = 'https://script.google.com/macros/s/AKfycbz45AFZggp1xyHBoHjJnVq3KfWRr1lvH1BgMeVAIouNh_rBUfSyusy7PtpHPDq6wXcg/exec';
 
         try {
-            if (scriptUrl) {
+            if (scriptUrl && !scriptUrl.includes('YOUR_GOOGLE_APPS_SCRIPT_URL_HERE')) {
                 await fetch(scriptUrl, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -288,16 +307,13 @@
             console.error('Error sending to AI System:', error);
         }
 
-        // 2. Open WhatsApp (Secondary action)
-        const whatsappNumber = "251943543986";
-        const message = `ሰላም ConnectBahirdar፣ አዲስ የጥገና ጥያቄ አለ፦\nባለሙያ፦ ${profession}\nስም፦ ${name}\nስልክ፦ ${phone}${email ? `\nኢሜይል፦ ${email}` : ''}`;
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
+        // Show success message instead of WhatsApp redirect
+        formContent.classList.add('hidden');
+        successContent.classList.remove('hidden');
 
-        // Reset form and close modal
+        // Reset form and button
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
-        modal.classList.add('hidden');
         form.reset();
     });
 </script>

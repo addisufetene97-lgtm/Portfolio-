@@ -45,32 +45,26 @@ function handleWebsiteData(data) {
   const sheet = ss.getSheets()[0];
 
   // 1. Record in Sheet
+  // Columns: Timestamp, User Name, User Phone, Selected Service, Intent (Demand/Supply), Status
   const timestamp = new Date();
-  sheet.appendRow([timestamp, data.name, data.phone, data.email || 'N/A', data.profession, 'Website', 'Pending']);
 
   // 2. Classify with Gemini
-  const prompt = `Classify this professional request for "${data.profession}" by "${data.name}". Is it a 'Customer' (someone needing help) or a 'Provider' (someone offering skills)? Respond with only one word: Customer or Provider.`;
-  const classification = classifyWithGemini(prompt);
+  const prompt = `Analyze this service request: "${data.profession}" by "${data.name}". Is it a 'Demand' (someone buying/needing a service) or a 'Supply' (someone selling/offering a service)? Respond with only one word: Demand or Supply.`;
+  const intent = classifyWithGemini(prompt);
 
-  // Update sheet with classification
-  const lastRow = sheet.getLastRow();
-  sheet.getRange(lastRow, 7).setValue(classification);
+  // Append row
+  sheet.appendRow([timestamp, data.name, data.phone, data.profession, intent, 'New']);
 
-  // 3. Generate PDF in Drive
+  // 3. Generate PDF in Drive (Optional backup)
   let fileUrl = 'Not Generated';
   try {
-    fileUrl = generateAndSavePDF(data, timestamp, classification);
+    fileUrl = generateAndSavePDF(data, timestamp, intent);
   } catch (e) {
     console.error('PDF Error:', e);
   }
 
-  // 4. Send Gmail Confirmation (if email exists)
-  if (data.email) {
-    sendGmailConfirmation(data.email, data.name, data.profession);
-  }
-
-  // 5. Notify Owner via Telegram
-  const msg = `🔔 *አዲስ የጥገና ጥያቄ (ከዌብሳይት)*\n\n👤 ስም: ${data.name}\n📞 ስልክ: ${data.phone}\n📧 ኢሜይል: ${data.email || 'የለም'}\n🛠 አገልግሎት: ${data.profession}\n🏷 አይነት: ${classification}\n📄 PDF: ${fileUrl}`;
+  // 4. Notify Owner via Telegram
+  const msg = `🔔 *አዲስ የጥገና ጥያቄ (ከዌብሳይት)*\n\n👤 ስም: ${data.name}\n📞 ስልክ: ${data.phone}\n🛠 አገልግሎት: ${data.profession}\n🏷 አይነት: ${intent === 'Demand' ? 'Buying/Demand' : 'Selling/Supply'}\n📄 PDF: ${fileUrl}`;
   sendTelegramMessage(CONFIG.OWNER_CHAT_ID, msg);
 
   return ContentService.createTextOutput(JSON.stringify({status: 'success'})).setMimeType(ContentService.MimeType.JSON);
@@ -93,12 +87,12 @@ function handleTelegramUpdate(update) {
   const ss = getSpreadsheet();
   const sheet = ss.getSheets()[0];
 
-  // 1. Use Gemini to extract info from text
+  // 1. Use Gemini to extract info and intent
   const prompt = `Extract name, phone, and service requested from this Amharic/English message: "${text}".
-  If missing, use "Unknown". Also classify as 'Customer' or 'Provider'.
-  Return JSON format: {"name": "...", "phone": "...", "service": "...", "type": "..."}`;
+  Classify intent as 'Demand' (buying) or 'Supply' (selling).
+  Return JSON format: {"name": "...", "phone": "...", "service": "...", "intent": "..."}`;
 
-  let extracted = {name: name, phone: 'Unknown', service: 'Unknown', type: 'Unknown'};
+  let extracted = {name: name, phone: 'Unknown', service: 'Unknown', intent: 'Unknown'};
   try {
     const aiResponse = classifyWithGemini(prompt);
     extracted = JSON.parse(aiResponse.replace(/```json|```/g, ''));
@@ -108,14 +102,14 @@ function handleTelegramUpdate(update) {
 
   // 2. Record in Sheet
   const timestamp = new Date();
-  sheet.appendRow([timestamp, extracted.name, extracted.phone, 'N/A', extracted.service, 'Telegram', extracted.type]);
+  sheet.appendRow([timestamp, extracted.name, extracted.phone, extracted.service, extracted.intent, 'New (Telegram)']);
 
   // 3. Reply to user
   const reply = `ሰላም ${name}! መልእክትዎ ደርሶናል። በቅርቡ እናገኝዎታለን። 🙏`;
   sendTelegramMessage(chatId, reply);
 
   // 4. Notify Owner
-  const ownerMsg = `🔔 *አዲስ መልእክት (ከቴሌግራም)*\n\n👤 ስም: ${extracted.name}\n📞 ስልክ: ${extracted.phone}\n🛠 አገልግሎት: ${extracted.service}\n🏷 አይነት: ${extracted.type}\n💬 ሙሉ መልእክት: ${text}`;
+  const ownerMsg = `🔔 *አዲስ መልእክት (ከቴሌግራም)*\n\n👤 ስም: ${extracted.name}\n📞 ስልክ: ${extracted.phone}\n🛠 አገልግሎት: ${extracted.service}\n🏷 አይነት: ${extracted.intent === 'Demand' ? 'Buying/Demand' : 'Selling/Supply'}\n💬 ሙሉ መልእክት: ${text}`;
   sendTelegramMessage(CONFIG.OWNER_CHAT_ID, ownerMsg);
 }
 
@@ -123,7 +117,7 @@ function handleTelegramUpdate(update) {
  * Calls Gemini API for classification or extraction
  */
 function classifyWithGemini(prompt) {
-  if (CONFIG.GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE') return 'Unclassified';
+  if (CONFIG.GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY_HERE' || CONFIG.GEMINI_API_KEY === '') return 'Unknown';
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CONFIG.GEMINI_API_KEY}`;
   const payload = {
@@ -144,15 +138,14 @@ function classifyWithGemini(prompt) {
 /**
  * Creates a simple PDF in Google Drive
  */
-function generateAndSavePDF(data, date, type) {
+function generateAndSavePDF(data, date, intent) {
   const html = `
     <h1>ConnectBahirdar Service Request</h1>
     <p><b>Date:</b> ${date}</p>
     <p><b>Name:</b> ${data.name}</p>
     <p><b>Phone:</b> ${data.phone}</p>
-    <p><b>Email:</b> ${data.email || 'N/A'}</p>
     <p><b>Service:</b> ${data.profession}</p>
-    <p><b>Type:</b> ${type}</p>
+    <p><b>Intent:</b> ${intent}</p>
     <hr>
     <p>Generated by ConnectBahirdar AI Agent</p>
   `;
@@ -176,6 +169,8 @@ function generateAndSavePDF(data, date, type) {
  * Sends a message via Telegram Bot API
  */
 function sendTelegramMessage(chatId, text) {
+  if (CONFIG.TELEGRAM_BOT_TOKEN === 'YOUR_TELEGRAM_BOT_TOKEN_HERE') return;
+
   const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
   const payload = {
     chat_id: chatId,
@@ -188,16 +183,6 @@ function sendTelegramMessage(chatId, text) {
     contentType: 'application/json',
     payload: JSON.stringify(payload)
   });
-}
-
-/**
- * Sends confirmation email via Gmail
- */
-function sendGmailConfirmation(email, name, profession) {
-  const subject = `ConnectBahirdar - ጥያቄዎ ደርሶናል`;
-  const body = `ሰላም ${name}፣\n\nለ ${profession} የላኩት የጥገና ጥያቄ በስኬት ደርሶናል። በ 5 ደቂቃ ውስጥ ባለሙያ ደውሎ ያነጋግርዎታል።\n\nስለመረጡን እናመሰግናለን!\nConnectBahirdar`;
-
-  GmailApp.sendEmail(email, subject, body);
 }
 
 /**
@@ -218,7 +203,7 @@ function getSpreadsheet() {
   // Create new one
   const ss = SpreadsheetApp.create('ConnectBahirdar_DB');
   const sheet = ss.getSheets()[0];
-  sheet.appendRow(['Timestamp', 'Name', 'Phone', 'Email', 'Service', 'Source', 'AI Classification']);
+  sheet.appendRow(['Timestamp', 'User Name', 'User Phone', 'Selected Service', 'Intent (Demand/Supply)', 'Status']);
   sheet.setFrozenRows(1);
   return ss;
 }
