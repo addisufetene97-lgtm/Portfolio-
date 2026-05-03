@@ -5,9 +5,9 @@
 
 // --- CONFIGURATION ---
 const CONFIG = {
-  TELEGRAM_BOT_TOKEN: '8690311849:AAHOeoa0TFhI2C0cNWqmah-RwlGGxID31Ls',
+  TELEGRAM_BOT_TOKEN: 'YOUR_TELEGRAM_BOT_TOKEN_HERE',
   OWNER_CHAT_ID: '331179859',
-  GEMINI_API_KEY: 'YOUR_GEMINI_API_KEY_HERE', // User needs to replace this
+  GEMINI_API_KEY: 'YOUR_GEMINI_API_KEY_HERE',
   SPREADSHEET_ID: '', // Optional: If empty, it will create one or use the active one
   DRIVE_FOLDER_ID: ''  // Optional: Folder to store PDFs
 };

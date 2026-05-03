@@ -9,6 +9,7 @@
 3. በፕሮጀክቱ ውስጥ ያለውን ኮድ በሙሉ ያጥፉ እና በ `ConnectBahirdar/GAS_Setup.js` ውስጥ ያለውን ኮድ ኮፒ አድርገው ይለጥፉ።
 4. በኮዱ አናት ላይ (Configuration section) የሚከተሉትን ይተኩ፦
    - `GEMINI_API_KEY`: የእርስዎን የ Gemini API Key ይለጥፉ ([ከዚህ ያግኙ](https://aistudio.google.com/app/apikey))።
+   - `TELEGRAM_BOT_TOKEN`: የእርስዎን የቴሌግራም ቦት ቶከን ይለጥፉ (ከ @BotFather ያገኙትን)።
 5. ፕሮጀክቱን ሴቭ (Save) ያድርጉ።
 
 ## ደረጃ 2: የዌብ አፕሊኬሽን (Web App) መዘርጋት
