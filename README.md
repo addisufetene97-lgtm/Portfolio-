@@ -1,36 +1,29 @@
-# Addisu Fetene (Ada) - Portfolio
+# ConnectBahirdar
 
-Welcome to my portfolio! I am an AI visual creator and professional video editor based in Ethiopia, specializing in high-retention short-form and YouTube content.
+ConnectBahirdar is a professional service-matching platform based in Bahir Dar, Ethiopia. It connects customers with local experts in satellite dish installation, electrical repairs, appliance maintenance, and professional painting.
 
-## 🚀 Overview
+## Features
 
-I take scripts and turn them into AI voiceovers, generate high-quality visuals, and deliver polished edits with strong pacing, sound design, and performance-focused storytelling.
+- **Service Booking:** Easy-to-use interface for customers to request specific professional help.
+- **AI-Powered Backend:** Integrated with Google Apps Script and Gemini AI to classify leads (Demand vs. Supply).
+- **Real-time Notifications:** Automated Telegram alerts for every new request.
+- **Data Management:** All leads are automatically logged into a Google Sheet database.
+- **Amharic Language Support:** Fully localized for the local community.
 
-### 🛠 Tools & Technology
+## How it Works
 
-- **Video Editing:** DaVinci Resolve
-- **AI Visuals:** Veo 3, Nano Banana
-- **AI Voiceover:** ElevenLabs
-- **Hardware:** Mac Mini M4
+1. **User Request:** A customer selects a service and enters their contact details.
+2. **Success Feedback:** The website provides immediate confirmation ("እናመሰግናለን!") while processing the data.
+3. **Automation:** The data is sent to a serverless backend (Google Apps Script).
+4. **AI Analysis:** Gemini AI classifies the intent of the request.
+5. **Alert:** You receive a Telegram notification with the customer's details and the AI's analysis.
 
-### 📈 Stats & Experience
+## Setup for Owners
 
-- **Viral Reach:** One recent video reached **269K views** on TikTok.
-- **Following:** 4K+ followers on TikTok.
-- **Dedication:** 30+ hours/week available for projects.
-- **Certifications:** Completing two 90-day Acadium apprenticeships (YouTube Video Editing + Video Editing Assistance).
-
-## 📁 Portfolio Highlights
-
-- **Viral AI TikTok:** Organic reach of 269K views.
-- **Client Promo Edit:** AI voiceover + visuals + sound design.
-- **AI Music Animation:** Creative AI-generated visuals.
-- **Client YouTube Video:** Full production and editing.
-
-## 📫 Contact Me
-
-- **Email:** [addisufetene97@gmail.com](mailto:addisufetene97@gmail.com)
-- **LinkedIn:** [Addisu Tsega](https://www.linkedin.com/in/addisu-tsega-32790a34a/)
+To activate the AI and Telegram notifications on your own account:
+1. Go to the `automation/` directory.
+2. Follow the steps in `INSTRUCTIONS.md` (written in Amharic).
+3. Deploy the code in `GAS_Setup.js` to your Google Apps Script account.
 
 ---
-*Crafting high-retention visuals with AI precision & human storytelling.*
+© 2024 ConnectBahirdar. All rights reserved.
