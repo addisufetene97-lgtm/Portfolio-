@@ -33,9 +33,6 @@ function doGet(e) {
     // Basic test endpoint
     return ContentService.createTextOutput("Automation is running!");
   }
-
-  // Telegram webhook payload usually comes as POST, but some setups use GET parameters
-  // For standard Telegram webhooks, we use doPost but handle the structure differently
 }
 
 /**
@@ -115,8 +112,6 @@ function sendTelegramMessage(text) {
   if (CONFIG.TELEGRAM_BOT_TOKEN === 'YOUR_TELEGRAM_BOT_TOKEN_HERE') return;
 
   const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
-  // You'll need a Chat ID here. Usually you get it from an initial message to the bot.
-  // For this setup, we assume you have your own ID or a group ID.
   const chatId = 'YOUR_CHAT_ID_HERE';
 
   const payload = {
