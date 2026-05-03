@@ -266,11 +266,10 @@
         submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> በመላክ ላይ...';
 
         // 1. Send data to Google Apps Script (AI System)
-        // REPLACE THE URL BELOW with your deployed Google Apps Script Web App URL
-        const scriptUrl = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbz45AFZggp1xyHBoHjJnVq3KfWRr1lvH1BgMeVAIouNh_rBUfSyusy7PtpHPDq6wXcg/exec';
 
         try {
-            if (scriptUrl !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+            if (scriptUrl) {
                 await fetch(scriptUrl, {
                     method: 'POST',
                     mode: 'no-cors',

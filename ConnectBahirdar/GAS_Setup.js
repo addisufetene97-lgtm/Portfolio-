@@ -228,7 +228,7 @@ function getSpreadsheet() {
  * Run this from the GAS editor after deploying as Web App
  */
 function setWebhook() {
-  const webAppUrl = 'PASTE_YOUR_DEPLOYED_WEB_APP_URL_HERE';
+  const webAppUrl = 'https://script.google.com/macros/s/AKfycbz45AFZggp1xyHBoHjJnVq3KfWRr1lvH1BgMeVAIouNh_rBUfSyusy7PtpHPDq6wXcg/exec';
   const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/setWebhook?url=${webAppUrl}`;
   const response = UrlFetchApp.fetch(url);
   Logger.log(response.getContentText());
