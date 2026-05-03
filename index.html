@@ -61,6 +61,8 @@
             border-radius: 50px;
             font-weight: bold;
             transition: transform 0.3s;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
@@ -237,7 +239,7 @@
             font-weight: 500;
         }
 
-        /* Contact */
+        /* Contact Form */
         .contact-info {
             text-align: center;
             font-size: 1.2em;
@@ -245,6 +247,58 @@
 
         .contact-info p {
             margin: 15px 0;
+        }
+
+        #contact-form {
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 120px;
+        }
+
+        #form-status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #form-status.success {
+            display: block;
+            background: #e6fffa;
+            color: #2c7a7b;
+            border: 1px solid #81e6d9;
+        }
+
+        #form-status.error {
+            display: block;
+            background: #fff5f5;
+            color: #c53030;
+            border: 1px solid #feb2b2;
         }
 
         /* Footer */
@@ -287,7 +341,7 @@
             <p class="tagline">AI Script-to-Voiceover Video Creation | Pro Video Editor</p>
             <p class="location">📍 Ethiopia |  Remote-Ready</p>
             <div class="cta-row">
-                <a href="mailto:addisufetene97@gmail.com" class="cta-button">Let's Work Together</a>
+                <a href="#contact" class="cta-button">Let's Work Together</a>
                 <a href="https://www.linkedin.com/in/addisu-tsega-32790a34a/" target="_blank" class="cta-button secondary">View LinkedIn</a>
             </div>
         </div>
@@ -451,12 +505,31 @@
         </section>
 
         <!-- Contact Section -->
-        <section>
+        <section id="contact">
             <h2>Let's Create Together</h2>
             <div class="contact-info">
                 <p>Ready to elevate your content with AI-powered video production?</p>
+
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-method">Email or Telegram</label>
+                        <input type="text" id="contact-method" name="contact" placeholder="Email or @username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Project Details</label>
+                        <textarea id="message" name="message" placeholder="How can I help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
+                    <div id="form-status"></div>
+                </form>
+
                 <p style="margin-top: 30px;">
-                    <a href="mailto:addisufetene97@gmail.com" class="cta-button">Get In Touch</a>
+                    Or email me directly at: <br>
+                    <a href="mailto:addisufetene97@gmail.com" style="color: #667eea; font-weight: bold;">addisufetene97@gmail.com</a>
                 </p>
             </div>
         </section>
@@ -468,5 +541,46 @@
             <p>Crafting high-retention visuals with AI precision & human storytelling</p>
         </div>
     </footer>
+
+    <script>
+        const scriptUrl = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+        const contactForm = document.getElementById('contact-form');
+        const statusDiv = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = contactForm.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            fetch(scriptUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Apps Script requires no-cors for simple POST
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                statusDiv.innerText = "እናመሰግናለን! መረጃው ደርሶናል። በ 5 ደቂቃ ውስጥ እንደውልልሃለን።";
+                statusDiv.className = "success";
+                contactForm.reset();
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                statusDiv.innerText = "Oops! Something went wrong. Please try again.";
+                statusDiv.className = "error";
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Send Message";
+            });
+        });
+    </script>
 </body>
 </html>
