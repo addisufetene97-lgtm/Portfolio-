@@ -1,259 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Addisu Fetene | AI Video Creator & Editor</title>
-    <meta name="description" content="Portfolio of Addisu Fetene, a professional AI visual creator and video editor specializing in high-retention short-form and YouTube content.">
-
+    <title>ConnectBahirdar | የታመኑ የሙያ አገልግሎቶች</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #0088cc;
+            --secondary: #005580;
+            --accent: #ffcc00;
+            --text: #333;
+            --light: #f4f4f4;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text);
+            background-color: var(--light);
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
         /* Hero Section */
         .hero {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 80px 0;
+            background: linear-gradient(rgba(0,136,204,0.8), rgba(0,85,128,0.8)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
             text-align: center;
-            border-radius: 0 0 50px 50px;
+            color: var(--white);
         }
 
         .hero h1 {
-            font-size: 3em;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .hero .tagline {
-            font-size: 1.3em;
-            color: #666;
+            font-size: 48px;
             margin-bottom: 20px;
         }
 
-        .hero .location {
-            color: #888;
-            font-size: 1.1em;
-        }
-
-        .cta-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 15px 40px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: transform 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .cta-row {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .cta-button.secondary {
-            margin-top: 0;
-            background: rgba(102, 126, 234, 0.12);
-            color: #667eea;
-            border: 2px solid #667eea;
-            box-shadow: none;
-        }
-
-        /* Sections */
-        section {
-            background: white;
-            margin: 40px auto;
-            padding: 60px 0;
-            border-radius: 20px;
-        }
-
-        h2 {
-            font-size: 2.5em;
-            color: #667eea;
+        .hero p {
+            font-size: 20px;
             margin-bottom: 30px;
-            text-align: center;
         }
 
-        /* Services Grid */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--text);
+        }
+
+        .btn-primary:hover {
+            background: #e6b800;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--secondary);
+        }
+
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
 
         .service-card {
-            background: #f8f9ff;
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
+            background: var(--light);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .service-card i {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
 
         .service-card h3 {
-            color: #667eea;
             margin-bottom: 15px;
-            font-size: 1.4em;
+            font-size: 24px;
         }
 
-        /* Workflow Steps */
-        .steps-grid {
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+
+        .contact-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
         }
 
-        .step-card {
-            background: #f8f9ff;
-            padding: 30px;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
-        }
-
-        .step-card h3 {
-            color: #667eea;
-            margin-bottom: 12px;
-            font-size: 1.35em;
-        }
-
-        /* Portfolio Grid */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .portfolio-item {
-            background: #f8f9ff;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-
-        .portfolio-item iframe,
-        .portfolio-item video {
-            width: 100%;
-            height: 250px;
-            border: none;
-        }
-
-        .media-placeholder {
-            width: 100%;
-            height: 250px;
-            background: rgba(102, 126, 234, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #667eea;
-            font-weight: 700;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .portfolio-info {
-            padding: 25px;
-        }
-
-        .portfolio-info h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .portfolio-info a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Stats */
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 40px 0;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .stat-number {
-            font-size: 3em;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 1.1em;
-        }
-
-        /* Tools */
-        .tools-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .tool-tag {
-            background: #667eea;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-weight: 500;
-        }
-
-        /* Contact Form */
-        .contact-info {
-            text-align: center;
-            font-size: 1.2em;
-        }
-
-        .contact-info p {
-            margin: 15px 0;
-        }
-
-        #contact-form {
-            max-width: 600px;
-            margin: 30px auto;
-            text-align: left;
-            padding: 20px;
+        .contact-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .form-group {
@@ -263,322 +186,197 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            color: #667eea;
-            font-weight: 600;
+            font-weight: bold;
         }
 
-        .form-group input,
-        .form-group textarea {
+        .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid rgba(102, 126, 234, 0.2);
-            border-radius: 10px;
-            font-family: inherit;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
         .form-group textarea {
-            height: 120px;
+            height: 100px;
         }
 
-        #form-status {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
+        .success-message {
             display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        #form-status.success {
-            display: block;
-            background: #e6fffa;
-            color: #2c7a7b;
-            border: 1px solid #81e6d9;
-        }
-
-        #form-status.error {
-            display: block;
-            background: #fff5f5;
-            color: #c53030;
-            border: 1px solid #feb2b2;
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
         }
 
         /* Footer */
         footer {
-            background: rgba(255, 255, 255, 0.95);
-            text-align: center;
+            background: var(--secondary);
+            color: var(--white);
             padding: 40px 0;
-            border-radius: 50px 50px 0 0;
-            color: #666;
+            text-align: center;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2em;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-row {
-                flex-direction: column;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .cta-button {
-                width: 80%;
-                margin-top: 0;
-            }
+            .hero h1 { font-size: 32px; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <div class="hero">
+
+    <header>
         <div class="container">
-            <h1>Addisu Fetene</h1>
-            <p class="tagline">AI Script-to-Voiceover Video Creation | Pro Video Editor</p>
-            <p class="location">📍 Ethiopia |  Remote-Ready</p>
-            <div class="cta-row">
-                <a href="#contact" class="cta-button">Let's Work Together</a>
-                <a href="https://www.linkedin.com/in/addisu-tsega-32790a34a/" target="_blank" class="cta-button secondary">View LinkedIn</a>
-            </div>
+            <nav>
+                <a href="#" class="logo">ConnectBahirdar</a>
+                <div class="nav-links">
+                    <a href="#services">አገልግሎቶች</a>
+                    <a href="#contact">ይዘዙ</a>
+                </div>
+                <a href="https://wa.me/251943543986" class="btn btn-primary" style="padding: 8px 20px;">ደውሉ</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <div class="container">
-        <!-- About Section -->
-        <section>
-            <h2>About Me</h2>
-            <div class="container" style="text-align: center; max-width: 800px;">
-                <p style="font-size: 1.2em; line-height: 1.8;">
-                    I’m an AI visual creator and professional video editor based in Ethiopia, specializing in <strong>high-retention short-form and YouTube content</strong>.
-                    I take your scripts and turn them into <strong>AI voiceovers</strong>, generate visuals, and deliver a polished edit with strong pacing,
-                    sound design, and performance-focused storytelling.
-                </p>
+    <section class="hero">
+        <div class="container">
+            <h1>ለቤትዎ የታመኑ የሙያ አገልግሎቶች</h1>
+            <p>የዲሽ ተከላ፣ የኤሌክትሮኒክስ ጥገና እና የቧንቧ ስራዎችን በፍጥነት እና በጥራት እናከናውናለን።</p>
+            <a href="#contact" class="btn btn-primary">አሁኑኑ ይዘዙ</a>
+        </div>
+    </section>
 
-                <p style="font-size: 1.05em; line-height: 1.8; margin-top: 20px;">
-                    I run my own TikTok page focused on AI visuals (4K+ followers), where one recent video reached 269K views.
-                    I also create full video edits and thumbnails for clients, combining creativity with performance-focused storytelling.
-                </p>
-
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number">269K</div>
-                        <div class="stat-label">Viral Views</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">4K+</div>
-                        <div class="stat-label">TikTok Followers</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">30+</div>
-                        <div class="stat-label">Hours/Week</div>
-                    </div>
-                </div>
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>የምንሰጣቸው አገልግሎቶች</h2>
             </div>
-        </section>
-
-        <!-- Workflow Section -->
-        <section>
-            <h2>AI Video Creation Workflow</h2>
-            <div class="steps-grid">
-                <div class="step-card">
-                    <h3>1) Scripts → AI Voiceover</h3>
-                    <p>Turn your script into a clean AI voiceover (e.g., ElevenLabs) with the style your audience connects with.</p>
-                </div>
-                <div class="step-card">
-                    <h3>2) AI Visuals → Video</h3>
-                    <p>Create visuals with tools like Veo 3 and Nano Banana, then assemble scenes for retention-driven pacing.</p>
-                </div>
-                <div class="step-card">
-                    <h3>3) Polish + Sound Design</h3>
-                    <p>Professional editing in DaVinci Resolve: timing, transitions, thumbnail-ready framing, and detailed sound design.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section>
-            <h2>Services</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <h3>🎬 Script-to-Voiceover (AI)</h3>
-                    <p>Convert scripts into AI voiceovers and edit with hook-first structure for high-retention short-form.</p>
+                    <i class="fas fa-satellite-dish"></i>
+                    <h3>የዲሽ ተከላ</h3>
+                    <p>አዳዲስ የዲሽ ተከላ፣ የሲግናል ማስተካከል እና የሪሲቨር ፕሮግራም ስራዎችን በጥራት እንሰራለን።</p>
                 </div>
                 <div class="service-card">
-                    <h3>🤖 AI Visual Creation</h3>
-                    <p>Generate visuals using Veo 3 and Nano Banana, then assemble scenes that feel smooth and professional.</p>
+                    <h3>የኤሌክትሮኒክስ ጥገና</h3>
+                    <p>ቴሌቪዥን፣ ፍሪጅ፣ ማጠቢያ ማሽን እና ሌሎች የቤት ውስጥ መገልገያዎችን በባለሙያ እንጠግናለን።</p>
                 </div>
                 <div class="service-card">
-                    <h3>📺 Pro Editing in DaVinci Resolve</h3>
-                    <p>Polished cuts, pacing, transitions, captions, and performance-focused storytelling.</p>
-                </div>
-                <div class="service-card">
-                    <h3>🎨 Thumbnails + Visual Polish</h3>
-                    <p>Thumbnail framing and visual consistency so clients stand out on TikTok and YouTube.</p>
-                </div>
-                <div class="service-card">
-                    <h3>🔊 Sound Design + Mixing</h3>
-                    <p>Detailed sound design, clean audio, dynamic SFX, and music syncing for emotional impact.</p>
+                    <i class="fas fa-faucet"></i>
+                    <h3>የቧንቧ ስራ</h3>
+                    <p>የውሃ መስመር ዝርጋታ፣ የሽንት ቤት እና የሻወር እቃዎች ገጠማ እንዲሁም የፍሳሽ ማስወገጃ ስራዎችን እንሰራለን።</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Portfolio Section -->
-        <section>
-            <h2>Featured Works (Client & AI)</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="media-placeholder">Client Promo Edit</div>
-                    <div class="portfolio-info">
-                        <h3>Client Promo Edit</h3>
-                        <p>AI voiceover + visuals + sound design</p>
-                        <a href="https://drive.google.com/file/d/19C1Kr5kP9ot_7yyv4dlprRmd0TtC310E/view?usp=drivesdk" target="_blank">Watch →</a>
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2>ባለሙያ ይዘዙ</h2>
+                    <p>የሚፈልጉትን አገልግሎት ይጥቀሱ፣ እኛ ደግሞ በ 5 ደቂቃ ውስጥ ደውለን ባለሙያ እንልክልዎታለን።</p>
+                    <div style="margin-top: 30px;">
+                        <p><i class="fas fa-phone"></i> +251 943 543 986</p>
+                        <p><i class="fas fa-location-dot"></i> ባህር ዳር፣ ኢትዮጵያ</p>
                     </div>
                 </div>
-
-                <div class="portfolio-item">
-                    <div style="background: #667eea; height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2em;">
-                        TikTok Video<br>269K Views
+                <div class="contact-form">
+                    <div id="success-msg" class="success-message">
+                        እናመሰግናለን! መረጃው ደርሶናል። በ 5 ደቂቃ ውስጥ እንደውልልሃለን።
                     </div>
-                    <div class="portfolio-info">
-                        <h3>Viral AI TikTok</h3>
-                        <p>Organic reach: 269K views</p>
-                        <a href="https://www.tiktok.com/t/ZThLtJUM3" target="_blank">Watch on TikTok →</a>
-                    </div>
-                </div>
-
-                <div class="portfolio-item">
-                    <div class="media-placeholder">AI Music Animation</div>
-                    <div class="portfolio-info">
-                        <h3>AI Music Animation</h3>
-                        <p>Creative AI-generated visuals</p>
-                        <a href="https://youtube.com/shorts/rZSwOzr4shI" target="_blank">Watch →</a>
-                    </div>
-                </div>
-
-                <div class="portfolio-item">
-                    <div class="media-placeholder">Client YouTube Video</div>
-                    <div class="portfolio-info">
-                        <h3>Client YouTube Video</h3>
-                        <p>Full production & editing</p>
-                        <a href="https://youtu.be/pZwXAGnOeKE" target="_blank">Watch →</a>
-                    </div>
-                </div>
-
-                <div class="portfolio-item">
-                    <div class="media-placeholder">Kids AI Animation</div>
-                    <div class="portfolio-info">
-                        <h3>Kids AI Animation</h3>
-                        <p>Family-friendly content</p>
-                        <a href="https://drive.google.com/file/d/1CFsDJaldQtLfnS5WGzYZ1exstTDTQT-Z/view?usp=drivesdk" target="_blank">Watch →</a>
-                    </div>
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label>ስም</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ስልክ ቁጥር</label>
+                            <input type="tel" name="contact" required>
+                        </div>
+                        <div class="form-group">
+                            <label>አገልግሎት</label>
+                            <select name="service" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+                                <option value="Dish">የዲሽ ተከላ</option>
+                                <option value="Electronics">የኤሌክትሮኒክስ ጥገና</option>
+                                <option value="Plumbing">የቧንቧ ስራ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ተጨማሪ መረጃ</label>
+                            <textarea name="message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">ትዕዛዝ ላክ</button>
+                    </form>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Tools Section -->
-        <section>
-            <h2>Tools & Technology</h2>
-            <div class="tools-list">
-                <span class="tool-tag">DaVinci Resolve</span>
-                <span class="tool-tag">Veo 3</span>
-                <span class="tool-tag">Nano Banana</span>
-                <span class="tool-tag">ElevenLabs</span>
-                <span class="tool-tag">Mac Mini M4</span>
-                <span class="tool-tag">AI Voiceovers</span>
-                <span class="tool-tag">Sound Design</span>
-            </div>
-        </section>
-
-        <!-- Availability Section -->
-        <section>
-            <h2>Availability</h2>
-            <div class="contact-info">
-                <p>✅ <strong>Available:</strong> Full-time (30+ hours/week)</p>
-                <p>✅ <strong>Start Date:</strong> Immediate</p>
-                <p>✅ <strong>Timezone:</strong> East Africa Time (EAT) — flexible for US/EU overlap</p>
-                <p>✅ <strong>Acadium:</strong> Completing two 90-day apprenticeships (YouTube Video Editing + Video Editing Assistance), both with certificates</p>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Let's Create Together</h2>
-            <div class="contact-info">
-                <p>Ready to elevate your content with AI-powered video production?</p>
-
-                <form id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-method">Email or Telegram</label>
-                        <input type="text" id="contact-method" name="contact" placeholder="Email or @username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Project Details</label>
-                        <textarea id="message" name="message" placeholder="How can I help you?" required></textarea>
-                    </div>
-                    <button type="submit" class="cta-button" style="width: 100%;">Send Message</button>
-                    <div id="form-status"></div>
-                </form>
-
-                <p style="margin-top: 30px;">
-                    Or email me directly at: <br>
-                    <a href="mailto:addisufetene97@gmail.com" style="color: #667eea; font-weight: bold;">addisufetene97@gmail.com</a>
-                </p>
-            </div>
-        </section>
-    </div>
+    <a href="https://wa.me/251943543986" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Addisu Fetene. All rights reserved.</p>
-            <p>Crafting high-retention visuals with AI precision & human storytelling</p>
+            <p>&copy; 2026 ConnectBahirdar. መብቱ በህግ የተጠበቀ ነው።</p>
         </div>
     </footer>
 
     <script>
-        const scriptUrl = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
-        const contactForm = document.getElementById('contact-form');
-        const statusDiv = document.getElementById('form-status');
+        // የእርስዎን Google Apps Script URL እዚህ ያስገቡ (Your Google Apps Script URL goes here)
+        const scriptUrl = "YOUR_WEB_APP_URL_HERE";
+        const form = document.getElementById('orderForm');
+        const successMsg = document.getElementById('success-msg');
 
-        contactForm.addEventListener('submit', function(e) {
+        form.addEventListener('submit', e => {
             e.preventDefault();
-
-            const submitBtn = contactForm.querySelector('button');
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Sending...";
-
-            const formData = new FormData(contactForm);
-            const data = Object.fromEntries(formData.entries());
+            const btn = form.querySelector('button');
+            btn.disabled = true;
+            btn.innerText = "በመላክ ላይ...";
 
             fetch(scriptUrl, {
                 method: 'POST',
-                mode: 'no-cors', // Apps Script requires no-cors for simple POST
-                cache: 'no-cache',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                mode: 'no-cors',
+                body: JSON.stringify({
+                    name: form.name.value,
+                    contact: form.contact.value,
+                    message: `አገልግሎት: ${form.service.value} | መረጃ: ${form.message.value}`
+                })
             })
-            .then(response => {
-                statusDiv.innerText = "እናመሰግናለን! መረጃው ደርሶናል። በ 5 ደቂቃ ውስጥ እንደውልልሃለን።";
-                statusDiv.className = "success";
-                contactForm.reset();
+            .then(() => {
+                successMsg.style.display = 'block';
+                form.reset();
+                btn.disabled = false;
+                btn.innerText = "ትዕዛዝ ላክ";
+                window.scrollTo({ top: successMsg.offsetTop - 100, behavior: 'smooth' });
             })
             .catch(error => {
                 console.error('Error!', error.message);
-                statusDiv.innerText = "Oops! Something went wrong. Please try again.";
-                statusDiv.className = "error";
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Send Message";
+                alert('ስህተት ተከስቷል። እባክዎ ደግመው ይሞክሩ።');
+                btn.disabled = false;
+                btn.innerText = "ትዕዛዝ ላክ";
             });
         });
     </script>

@@ -1,36 +1,31 @@
-# Addisu Fetene - Portfolio
+# ConnectBahirdar - Skilled Professional Services & AI Automation
 
-Welcome to my portfolio! I am an AI visual creator and professional video editor based in Ethiopia, specializing in high-retention short-form and YouTube content.
+ConnectBahirdar is a specialized landing page and automation system designed to connect skilled professionals (Dish technicians, Electronics repair, and Plumbers) with clients in Bahir Dar, Ethiopia.
 
-## 🚀 Overview
+## 🚀 Features
 
-I take scripts and turn them into AI voiceovers, generate high-quality visuals, and deliver polished edits with strong pacing, sound design, and performance-focused storytelling.
+- **Responsive Landing Page:** Built with HTML/CSS/JS, featuring Amharic content and mobile-friendly design.
+- **AI-Powered Lead Classification:** Uses Google Gemini AI to classify customer requests as "Demand" or "Supply".
+- **Automated Logging:** Saves all customer inquiries directly to a Google Sheet.
+- **Instant Notifications:** Sends real-time alerts to a Telegram Bot when a new order is placed.
+- **Direct Contact:** Integrated WhatsApp and phone buttons for immediate communication.
 
-### 🛠 Tools & Technology
+## 📁 Project Structure
 
-- **Video Editing:** DaVinci Resolve
-- **AI Visuals:** Veo 3, Nano Banana
-- **AI Voiceover:** ElevenLabs
-- **Hardware:** Mac Mini M4
+- `index.html`: The main website with the service booking form.
+- `automation/GAS_Setup.js`: The Google Apps Script code for backend automation and AI integration.
+- `README.md`: Project overview.
 
-### 📈 Stats & Experience
+## 🛠 Setup Instructions
 
-- **Viral Reach:** One recent video reached **269K views** on TikTok.
-- **Following:** 4K+ followers on TikTok.
-- **Dedication:** 30+ hours/week available for projects.
-- **Certifications:** Completing two 90-day Acadium apprenticeships (YouTube Video Editing + Video Editing Assistance).
+1.  **Google Apps Script:** Create a new project at [script.google.com](https://script.google.com) and paste the contents of `automation/GAS_Setup.js`.
+2.  **API Keys:**
+    - Obtain a Gemini API key from Google AI Studio.
+    - Create a Telegram Bot via @BotFather.
+    - Update the placeholders in `GAS_Setup.js` with your keys.
+3.  **Deployment:** Deploy the script as a Web App and copy the URL.
+4.  **Frontend Sync:** Paste the Web App URL into the `scriptUrl` constant in `index.html`.
 
-## 📁 Portfolio Highlights
+## 📞 Support
 
-- **Viral AI TikTok:** Organic reach of 269K views.
-- **Client Promo Edit:** AI voiceover + visuals + sound design.
-- **AI Music Animation:** Creative AI-generated visuals.
-- **Client YouTube Video:** Full production and editing.
-
-## 📫 Contact Me
-
-- **Email:** [addisufetene97@gmail.com](mailto:addisufetene97@gmail.com)
-- **LinkedIn:** [Addisu Tsega](https://www.linkedin.com/in/addisu-tsega-32790a34a/)
-
----
-*Crafting high-retention visuals with AI precision & human storytelling.*
+For improvements or customizations, contact the developer.
