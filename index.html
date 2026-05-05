@@ -3,382 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConnectBahirdar | የታመኑ የሙያ አገልግሎቶች</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>ConnectBahirDar | መግቢያ ገጽ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #0088cc;
-            --secondary: #005580;
-            --accent: #ffcc00;
-            --text: #333;
-            --light: #f4f4f4;
-            --white: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
         body {
-            line-height: 1.6;
-            color: var(--text);
-            background-color: var(--light);
+            font-family: 'Noto Sans Ethiopic', sans-serif;
+            background-color: #f8fafc;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .portal-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
-        /* Header */
-        header {
-            background: var(--white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,136,204,0.8), rgba(0,85,128,0.8)), url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: var(--text);
-        }
-
-        .btn-primary:hover {
-            background: #e6b800;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 80px 0;
-            background: var(--white);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--secondary);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: var(--light);
-            padding: 40px;
-            border-radius: 10px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .service-card:hover {
+        .portal-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .service-card i {
-            font-size: 50px;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-        }
-
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-
-        .contact-form {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .form-group textarea {
-            height: 100px;
-        }
-
-        .success-message {
-            display: none;
-            background: #d4edda;
-            color: #155724;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--secondary);
-            color: var(--white);
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
-            .nav-links { display: none; }
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
 
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">ConnectBahirdar</a>
-                <div class="nav-links">
-                    <a href="#services">አገልግሎቶች</a>
-                    <a href="#contact">ይዘዙ</a>
-                </div>
-                <a href="https://wa.me/251943543986" class="btn btn-primary" style="padding: 8px 20px;">ደውሉ</a>
-            </nav>
-        </div>
+    <header class="text-center mb-12">
+        <h1 class="text-5xl font-black text-slate-800 mb-2" style="font-family:'Playfair Display',serif;">
+            Connect<span class="text-teal-600">BahirDar</span>
+        </h1>
+        <p class="text-slate-500 text-lg">የሚፈልጉትን አገልግሎት ይምረጡ</p>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>ለቤትዎ የታመኑ የሙያ አገልግሎቶች</h1>
-            <p>የዲሽ ተከላ፣ የኤሌክትሮኒክስ ጥገና እና የቧንቧ ስራዎችን በፍጥነት እና በጥራት እናከናውናለን።</p>
-            <a href="#contact" class="btn btn-primary">አሁኑኑ ይዘዙ</a>
-        </div>
-    </section>
-
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>የምንሰጣቸው አገልግሎቶች</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        <!-- Rental Portal -->
+        <a href="rental/index.html" class="portal-card bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center">
+                <span class="text-6xl">🏠</span>
             </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-satellite-dish"></i>
-                    <h3>የዲሽ ተከላ</h3>
-                    <p>አዳዲስ የዲሽ ተከላ፣ የሲግናል ማስተካከል እና የሪሲቨር ፕሮግራም ስራዎችን በጥራት እንሰራለን።</p>
-                </div>
-                <div class="service-card">
-                    <h3>የኤሌክትሮኒክስ ጥገና</h3>
-                    <p>ቴሌቪዥን፣ ፍሪጅ፣ ማጠቢያ ማሽን እና ሌሎች የቤት ውስጥ መገልገያዎችን በባለሙያ እንጠግናለን።</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-faucet"></i>
-                    <h3>የቧንቧ ስራ</h3>
-                    <p>የውሃ መስመር ዝርጋታ፣ የሽንት ቤት እና የሻወር እቃዎች ገጠማ እንዲሁም የፍሳሽ ማስወገጃ ስራዎችን እንሰራለን።</p>
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">የቤት ኪራይ</h2>
+                <p class="text-slate-600">ቤቶን ያከራዩ ወይም የሚከራይ ቤት ይፈልጉ። ቀላል እና ፈጣን የቤት ኪራይ አስተዳደር።</p>
+                <div class="mt-6 inline-flex items-center text-teal-600 font-bold">
+                    ይግቡ <span class="ml-2">→</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </a>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h2>ባለሙያ ይዘዙ</h2>
-                    <p>የሚፈልጉትን አገልግሎት ይጥቀሱ፣ እኛ ደግሞ በ 5 ደቂቃ ውስጥ ደውለን ባለሙያ እንልክልዎታለን።</p>
-                    <div style="margin-top: 30px;">
-                        <p><i class="fas fa-phone"></i> +251 943 543 986</p>
-                        <p><i class="fas fa-location-dot"></i> ባህር ዳር፣ ኢትዮጵያ</p>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <div id="success-msg" class="success-message">
-                        እናመሰግናለን! መረጃው ደርሶናል። በ 5 ደቂቃ ውስጥ እንደውልልሃለን።
-                    </div>
-                    <form id="orderForm">
-                        <div class="form-group">
-                            <label>ስም</label>
-                            <input type="text" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label>ስልክ ቁጥር</label>
-                            <input type="tel" name="contact" required>
-                        </div>
-                        <div class="form-group">
-                            <label>አገልግሎት</label>
-                            <select name="service" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
-                                <option value="Dish">የዲሽ ተከላ</option>
-                                <option value="Electronics">የኤሌክትሮኒክስ ጥገና</option>
-                                <option value="Plumbing">የቧንቧ ስራ</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>ተጨማሪ መረጃ</label>
-                            <textarea name="message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">ትዕዛዝ ላክ</button>
-                    </form>
+        <!-- Services Portal -->
+        <a href="services/index.html" class="portal-card bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col">
+            <div class="h-48 bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                <span class="text-6xl">🛠️</span>
+            </div>
+            <div class="p-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">የሙያ አገልግሎቶች</h2>
+                <p class="text-slate-600">የዲሽ ተከላ፣ የኤሌክትሮኒክስ ጥገና እና የቧንቧ ስራዎች። የታመኑ ባለሙያዎችን ያግኙ።</p>
+                <div class="mt-6 inline-flex items-center text-orange-500 font-bold">
+                    ይግቡ <span class="ml-2">→</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </a>
+    </div>
 
-    <a href="https://wa.me/251943543986" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 ConnectBahirdar. መብቱ በህግ የተጠበቀ ነው።</p>
-        </div>
+    <footer class="mt-16 text-slate-400 text-sm">
+        &copy; 2026 ConnectBahirDar. መብቱ በህግ የተጠበቀ ነው።
     </footer>
 
-    <script>
-        // የእርስዎን Google Apps Script URL እዚህ ያስገቡ (Your Google Apps Script URL goes here)
-        const scriptUrl = "YOUR_WEB_APP_URL_HERE";
-        const form = document.getElementById('orderForm');
-        const successMsg = document.getElementById('success-msg');
-
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = form.querySelector('button');
-            btn.disabled = true;
-            btn.innerText = "በመላክ ላይ...";
-
-            fetch(scriptUrl, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({
-                    name: form.name.value,
-                    contact: form.contact.value,
-                    message: `አገልግሎት: ${form.service.value} | መረጃ: ${form.message.value}`
-                })
-            })
-            .then(() => {
-                successMsg.style.display = 'block';
-                form.reset();
-                btn.disabled = false;
-                btn.innerText = "ትዕዛዝ ላክ";
-                window.scrollTo({ top: successMsg.offsetTop - 100, behavior: 'smooth' });
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert('ስህተት ተከስቷል። እባክዎ ደግመው ይሞክሩ።');
-                btn.disabled = false;
-                btn.innerText = "ትዕዛዝ ላክ";
-            });
-        });
-    </script>
 </body>
 </html>

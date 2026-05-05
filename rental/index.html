@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConnectBahirDar Rental</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal:   #0f766e;
+      --teal-d: #0d5f58;
+      --teal-l: #14b8a6;
+      --gold:   #d97706;
+      --gold-l: #f59e0b;
+      --cream:  #fdfaf5;
+      --dark:   #1a1a2e;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans Ethiopic', sans-serif;
+      background: var(--cream);
+      color: #1c1c1c;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--teal-d) 0%, var(--teal) 60%, #0891b2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .site-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px rgba(15,118,110,.09), 0 1px 4px rgba(0,0,0,.06);
+      border: 1px solid rgba(20,184,166,.12);
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: .02em;
+      border-left: 3px solid var(--gold);
+      padding-left: .6rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Inputs ── */
+    .field-label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: .3rem;
+    }
+    .field-input {
+      width: 100%;
+      padding: .6rem .85rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: .65rem;
+      font-family: 'Noto Sans Ethiopic', sans-serif;
+      font-size: .92rem;
+      color: #111;
+      background: #fafafa;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .field-input:focus {
+      border-color: var(--teal-l);
+      box-shadow: 0 0 0 3px rgba(20,184,166,.15);
+      background: #fff;
+    }
+    select.field-input { cursor: pointer; }
+
+    /* ── Photo zone ── */
+    .photo-drop {
+      border: 2px dashed #9ca3af;
+      border-radius: 1rem;
+      background: #f9fafb;
+      transition: border-color .2s, background .2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .photo-drop:hover, .photo-drop.dragover {
+      border-color: var(--teal-l);
+      background: rgba(20,184,166,.06);
+    }
+    .photo-drop input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .photo-thumb {
+      width: 64px; height: 64px;
+      border-radius: .5rem;
+      object-fit: cover;
+      border: 2px solid #e5e7eb;
+      position: relative;
+    }
+    .photo-thumb-wrap {
+      position: relative; display: inline-block;
+    }
+    .photo-remove-btn {
+      position: absolute; top: -6px; right: -6px;
+      background: #ef4444; color: #fff;
+      border-radius: 50%; width: 18px; height: 18px;
+      font-size: 11px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-weight: 700; line-height: 1;
+      border: none; box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+
+    /* ── Commission box ── */
+    .commission-box {
+      background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+      border: 1.5px solid #6ee7b7;
+      border-radius: .9rem;
+      padding: .85rem 1rem;
+    }
+
+    /* ── Checkbox ── */
+    .custom-check {
+      appearance: none; -webkit-appearance: none;
+      width: 20px; height: 20px;
+      border: 2px solid #d1d5db;
+      border-radius: 5px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all .2s;
+      background: #fff;
+      position: relative;
+    }
+    .custom-check:checked {
+      background: var(--teal);
+      border-color: var(--teal);
+    }
+    .custom-check:checked::after {
+      content: '✓';
+      position: absolute; top: -1px; left: 3px;
+      color: #fff; font-size: 13px; font-weight: 800;
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal) 0%, #0891b2 100%);
+      color: #fff;
+      font-family: 'Noto Sans Ethiopic', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: .8rem 2rem;
+      border-radius: .85rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      box-shadow: 0 4px 14px rgba(15,118,110,.35);
+      letter-spacing: .01em;
+    }
+    .btn-primary:hover { opacity: .92; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    .btn-back {
+      background: transparent;
+      border: 1.5px solid #9ca3af;
+      color: #374151;
+      font-family: 'Noto Sans Ethiopic', sans-serif;
+      font-weight: 600;
+      font-size: .92rem;
+      padding: .6rem 1.4rem;
+      border-radius: .75rem;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-back:hover { border-color: var(--teal); color: var(--teal); }
+
+    .btn-submit {
+      background: linear-gradient(135deg, var(--gold) 0%, #b45309 100%);
+      color: #fff;
+      font-family: 'Noto Sans Ethiopic', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: .85rem 2rem;
+      border-radius: .85rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      box-shadow: 0 4px 14px rgba(217,119,6,.35);
+    }
+    .btn-submit:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* ── Steps ── */
+    .step-dot {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; font-weight: 700;
+      transition: all .3s;
+    }
+    .step-line { flex: 1; height: 2px; background: #e5e7eb; margin: 0 4px; }
+    .step-line.done { background: var(--teal-l); }
+
+    /* ── Preview card ── */
+    .preview-row {
+      display: flex; gap: .5rem;
+      padding: .6rem 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .preview-row:last-child { border-bottom: none; }
+    .preview-label { color: #6b7280; font-size: .82rem; min-width: 100px; font-weight: 500; }
+    .preview-val { font-weight: 600; color: #111; font-size: .88rem; word-break: break-word; }
+
+    /* ── Success screen ── */
+    @keyframes pop {
+      0%   { transform: scale(.6); opacity: 0; }
+      70%  { transform: scale(1.1); }
+      100% { transform: scale(1);  opacity: 1; }
+    }
+    .success-icon { animation: pop .5s ease forwards; }
+
+    /* ── Transitions ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .view.active { animation: fadeUp .35s ease; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
+      background: #1f2937; color: #fff;
+      padding: .65rem 1.4rem; border-radius: 2rem;
+      font-size: .85rem; font-weight: 600;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+      z-index: 999; white-space: nowrap;
+    }
+    #toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<div class="site-header px-4 pt-8 pb-10 text-center relative">
+  <div class="relative z-10">
+    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4">
+      <span class="text-yellow-300 text-sm">🏠</span>
+      <span class="text-white/80 text-xs font-semibold tracking-widest uppercase">Bahir Dar</span>
+    </div>
+    <h1 class="text-3xl font-black text-white mb-1" style="font-family:'Playfair Display',serif;letter-spacing:-.01em;">
+      Connect<span class="text-yellow-300">BahirDar</span>
+    </h1>
+    <p class="text-teal-100 text-sm font-medium">የቤት ኪራይ አስተዳደር ስርዓት</p>
+    <p class="text-white/60 text-xs mt-1">Rental Management System</p>
+  </div>
+</div>
+
+<!-- ══════════════ STEP INDICATOR ══════════════ -->
+<div id="stepBar" class="px-6 py-4 max-w-lg mx-auto">
+  <div class="flex items-center">
+    <div id="s1dot" class="step-dot bg-teal-600 text-white">1</div>
+    <div class="step-line" id="sl1"></div>
+    <div id="s2dot" class="step-dot bg-gray-200 text-gray-400">2</div>
+    <div class="step-line" id="sl2"></div>
+    <div id="s3dot" class="step-dot bg-gray-200 text-gray-400">✓</div>
+  </div>
+  <div class="flex justify-between text-xs text-gray-400 mt-1.5 font-medium">
+    <span>መረጃ ይሙሉ</span>
+    <span>ቅድመ ዕይታ</span>
+    <span>ተጠናቀቀ</span>
+  </div>
+</div>
+
+<div class="px-4 pb-16 max-w-lg mx-auto">
+
+  <!-- ══════════════ VIEW 1: FORM ══════════════ -->
+  <div id="viewForm" class="view active">
+    <div class="card p-5 mb-4">
+      <p class="section-title">👤 የቤቱ ባለቤት መረጃ</p>
+
+      <div class="mb-4">
+        <label class="field-label">ሙሉ ስም <span class="text-red-500">*</span></label>
+        <input id="fName" class="field-input" type="text" placeholder="ለምሳሌ፦ አበበ ከበደ" />
+      </div>
+
+      <div class="mb-4">
+        <label class="field-label">የስልክ ቁጥር <span class="text-red-500">*</span></label>
+        <input id="fPhone" class="field-input" type="tel" placeholder="09XXXXXXXX" />
+      </div>
+
+      <div class="mb-4">
+        <label class="field-label">ኢሜይል <span class="text-gray-400 font-normal">(አስፈላጊ ካልሆነ ትቀር)</span></label>
+        <input id="fEmail" class="field-input" type="email" placeholder="abebe@gmail.com" />
+      </div>
+    </div>
+
+    <div class="card p-5 mb-4">
+      <p class="section-title">🏘️ ስለ ቤቱ መረጃ</p>
+
+      <div class="mb-4">
+        <label class="field-label">የቤት አይነት <span class="text-red-500">*</span></label>
+        <select id="fType" class="field-input">
+          <option value="">-- ይምረጡ --</option>
+          <option value="ጂ+0 (ቤት)">ጂ+0 (ቤት)</option>
+          <option value="ጂ+1 (ቤት)">ጂ+1 (ቤት)</option>
+          <option value="አፓርታማ (1 ክፍል)">አፓርታማ (1 ክፍል)</option>
+          <option value="አፓርታማ (2 ክፍል)">አፓርታማ (2 ክፍሎች)</option>
+          <option value="አፓርታማ (3 ክፍል)">አፓርታማ (3 ክፍሎች)</option>
+          <option value="ስቱዲዮ">ስቱዲዮ</option>
+          <option value="ቪላ">ቪላ</option>
+          <option value="ሱቅ / ቢዝነስ ቦታ">ሱቅ / ቢዝነስ ቦታ</option>
+          <option value="ሌላ">ሌላ</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="field-label">አካባቢ / ቀበሌ <span class="text-red-500">*</span></label>
+        <select id="fKebele" class="field-input">
+          <option value="">-- ይምረጡ --</option>
+          <option>ቀበሌ 01</option><option>ቀበሌ 02</option><option>ቀበሌ 03</option>
+          <option>ቀበሌ 04</option><option>ቀበሌ 05</option><option>ቀበሌ 06</option>
+          <option>ቀበሌ 07</option><option>ቀበሌ 08</option><option>ቀበሌ 09</option>
+          <option>ቀበሌ 10</option><option>ቀበሌ 11</option><option>ቀበሌ 12</option>
+          <option>ቀበሌ 13</option><option>ቀበሌ 14</option><option>ቀበሌ 15</option>
+          <option>ፋሲሎ ሰፈር</option><option>ጣና ሰፈር</option><option>ቤልጊቤ</option>
+          <option>ሌላ አካባቢ</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="field-label">ወርሃዊ ዋጋ (ብር) <span class="text-red-500">*</span></label>
+        <input id="fPrice" class="field-input" type="number" placeholder="ለምሳሌ፦ 4500" min="0" oninput="updateCommission()" />
+      </div>
+
+      <!-- Commission display -->
+      <div id="commissionBox" class="commission-box hidden mb-2">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-xs text-gray-500 font-medium">ወርሃዊ ዋጋ</p>
+            <p id="commBase" class="text-sm font-bold text-gray-700">— ብር</p>
+          </div>
+          <div class="text-xl text-gray-300">×</div>
+          <div class="text-center">
+            <p class="text-xs text-gray-500 font-medium">ኮሚሽን</p>
+            <p class="text-sm font-bold text-teal-600">15%</p>
+          </div>
+          <div class="text-xl text-gray-300">=</div>
+          <div class="text-right">
+            <p class="text-xs text-gray-500 font-medium">የኛ ኮሚሽን</p>
+            <p id="commValue" class="text-lg font-black text-teal-700">— ብር</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo upload -->
+    <div class="card p-5 mb-4">
+      <p class="section-title">📸 የቤቱ ፎቶዎች</p>
+      <p class="text-xs text-gray-500 mb-3">ከ 1 እስከ 5 ፎቶዎች ይምረጡ። አንድ በአንድ ወይም ሁሉንም ያክሉ።</p>
+
+      <div class="photo-drop py-7 text-center mb-3" id="dropZone">
+        <input type="file" id="photoInput" accept="image/*" multiple />
+        <div class="pointer-events-none">
+          <div class="text-3xl mb-2">📁</div>
+          <p class="text-sm font-semibold text-gray-600">ፎቶ ለማክለል ይጫኑ</p>
+          <p class="text-xs text-gray-400 mt-1">JPG, PNG, WEBP — ከ 5MB ያነሱ</p>
+        </div>
+      </div>
+
+      <!-- Counter -->
+      <div id="photoCounter" class="hidden text-center text-sm font-bold text-teal-700 mb-3 bg-teal-50 rounded-lg py-2 border border-teal-100">
+        ✅ <span id="photoCountNum">0</span> ፎቶ ተመርጧል
+      </div>
+
+      <!-- Thumbnails -->
+      <div id="thumbsContainer" class="flex flex-wrap gap-3"></div>
+    </div>
+
+    <!-- Policy checkbox -->
+    <div class="card p-5 mb-5">
+      <p class="section-title">📋 የኮሚሽን ስምምነት</p>
+      <div class="flex items-start gap-3">
+        <input type="checkbox" id="agreeCheck" class="custom-check mt-0.5" onchange="checkAgreement()" />
+        <label for="agreeCheck" class="text-sm text-gray-700 leading-relaxed cursor-pointer">
+          ConnectBahirDar ለሚሰጠው አገልግሎት <strong class="text-teal-700">15% ኮሚሽን</strong> ከወርሃዊ ዋጋ ሲሰላ ለመክፈል ተስማምቻለሁ።
+        </label>
+      </div>
+      <div id="agreeWarning" class="hidden mt-2 text-xs text-red-500 font-medium">
+        ⚠️ ቅጽ ከማስገባቱ በፊት ስምምነቱን ይቀበሉ።
+      </div>
+    </div>
+
+    <button class="btn-primary w-full" onclick="goToPreview()">
+      ቅድመ ዕይታ ይመልከቱ →
+    </button>
+  </div>
+
+  <!-- ══════════════ VIEW 2: PREVIEW ══════════════ -->
+  <div id="viewPreview" class="view">
+    <!-- Info message -->
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4 flex gap-3">
+      <span class="text-xl flex-shrink-0">📢</span>
+      <p class="text-sm text-blue-800 font-medium leading-relaxed">
+        ቤቱን ካረጋገጥን በኋላ ወደ ቻናላችን እናስተዋውቃለን። ደንበኛ ሲገኝ በኢሜይልና ስልክ እናሳውቅዎታለን።
+      </p>
+    </div>
+
+    <div class="card p-5 mb-4">
+      <p class="section-title">👤 የባለቤቱ መረጃ</p>
+      <div class="preview-row"><span class="preview-label">ሙሉ ስም</span><span id="pvName" class="preview-val"></span></div>
+      <div class="preview-row"><span class="preview-label">ስልክ</span><span id="pvPhone" class="preview-val"></span></div>
+      <div class="preview-row"><span class="preview-label">ኢሜይል</span><span id="pvEmail" class="preview-val text-gray-400"></span></div>
+    </div>
+
+    <div class="card p-5 mb-4">
+      <p class="section-title">🏘️ ስለ ቤቱ</p>
+      <div class="preview-row"><span class="preview-label">የቤት አይነት</span><span id="pvType" class="preview-val"></span></div>
+      <div class="preview-row"><span class="preview-label">አካባቢ</span><span id="pvKebele" class="preview-val"></span></div>
+      <div class="preview-row"><span class="preview-label">ወርሃዊ ዋጋ</span><span id="pvPrice" class="preview-val text-teal-700"></span></div>
+      <div class="preview-row"><span class="preview-label">15% ኮሚሽን</span><span id="pvComm" class="preview-val text-amber-600"></span></div>
+    </div>
+
+    <div class="card p-5 mb-5">
+      <p class="section-title">📸 ፎቶዎች</p>
+      <div id="pvThumbs" class="flex flex-wrap gap-2.5"></div>
+      <p id="pvNoPhoto" class="text-sm text-gray-400 hidden">ምንም ፎቶ አልታከለም</p>
+    </div>
+
+    <!-- Agreement summary -->
+    <div class="bg-teal-50 border border-teal-200 rounded-xl p-3.5 mb-5 flex items-center gap-2.5">
+      <span class="text-xl">✅</span>
+      <p class="text-sm text-teal-800 font-semibold">15% ኮሚሽን ስምምነት ተቀብለዋል</p>
+    </div>
+
+    <div class="flex gap-3">
+      <button class="btn-back flex-shrink-0" onclick="goBack()">← ይቀይሩ</button>
+      <button class="btn-submit flex-1" onclick="submitForm()">✓ ቅጽ ያስገቡ</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ VIEW 3: SUCCESS ══════════════ -->
+  <div id="viewSuccess" class="view text-center py-8">
+    <div class="success-icon text-6xl mb-4">🎉</div>
+    <h2 class="text-2xl font-black text-teal-700 mb-2">ተስማምቷል!</h2>
+    <p class="text-gray-500 text-sm mb-1">መረጃዎ ተላክ</p>
+    <p class="font-semibold text-gray-700 text-sm mb-6">ConnectBahirDar ቡድን ብዙም ሳይቆይ ያረጋግጥልዎታል።</p>
+
+    <div class="card p-5 mb-6 text-left">
+      <p class="text-sm text-gray-600 leading-loose">
+        📣 ቤቱ ካልተጠናቀቀ ሁኔታ ካልሆነ ወደ ቻናላችን ይለጠፋል።<br/>
+        📧 ደንበኛ ሲገኝ <strong>በኢሜይልዎ</strong> ዝርዝር ይልካሎ።<br/>
+        📞 <strong>ስልክ</strong> ደውሎ ያሳውቅዎታል።<br/>
+        💰 ኮሚሽን ደንበኛ ሲስማማ ብቻ ይከፈላል።
+      </p>
+    </div>
+
+    <button class="btn-primary w-full" onclick="resetAll()">
+      + ሌላ ቤት ለመጨመር
+    </button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+  // ─── CONFIG ───────────────────────────────────────────
+  const scriptUrl = "YOUR_APPS_SCRIPT_URL";
+
+  // ─── STATE ────────────────────────────────────────────
+  let selectedPhotos = [];   // File objects
+  let photoDataURLs  = [];   // base64 previews
+
+  // ─── PHOTO LOGIC ──────────────────────────────────────
+  const photoInput = document.getElementById('photoInput');
+  const thumbsContainer = document.getElementById('thumbsContainer');
+  const photoCounter = document.getElementById('photoCounter');
+  const photoCountNum = document.getElementById('photoCountNum');
+  const dropZone = document.getElementById('dropZone');
+
+  photoInput.addEventListener('change', handleFiles);
+
+  // drag & drop
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault(); dropZone.classList.remove('dragover');
+    handleFiles({ target: { files: e.dataTransfer.files } });
+  });
+
+  function handleFiles(e) {
+    const files = Array.from(e.target.files);
+    const remaining = 5 - selectedPhotos.length;
+    if (remaining <= 0) { showToast('⚠️ ከ5 ፎቶ አይበልጥም'); return; }
+    const toAdd = files.slice(0, remaining);
+    toAdd.forEach(file => {
+      if (file.size > 5 * 1024 * 1024) { showToast('⚠️ ' + file.name + ' — ከ5MB ይበልጣል'); return; }
+      selectedPhotos.push(file);
+      const reader = new FileReader();
+      reader.onload = ev => {
+        photoDataURLs.push(ev.target.result);
+        renderThumbs();
+      };
+      reader.readAsDataURL(file);
+    });
+    photoInput.value = '';
+  }
+
+  function renderThumbs() {
+    thumbsContainer.innerHTML = '';
+    selectedPhotos.forEach((f, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'photo-thumb-wrap';
+      wrap.innerHTML = `
+        <img src="${photoDataURLs[i]}" class="photo-thumb" alt="Photo ${i+1}" />
+        <button class="photo-remove-btn" onclick="removePhoto(${i})">✕</button>`;
+      thumbsContainer.appendChild(wrap);
+    });
+    const count = selectedPhotos.length;
+    photoCountNum.textContent = count;
+    photoCounter.classList.toggle('hidden', count === 0);
+  }
+
+  function removePhoto(idx) {
+    selectedPhotos.splice(idx, 1);
+    photoDataURLs.splice(idx, 1);
+    renderThumbs();
+  }
+
+  // ─── COMMISSION CALCULATOR ────────────────────────────
+function updateCommission() {
+    const price = parseFloat(document.getElementById('fPrice').value) || 0;
+    const box   = document.getElementById('commissionBox');
+    if (price > 0) {
+      const commission = (price * 0.15).toFixed(2);
+      document.getElementById('commBase').textContent  = price.toLocaleString() + ' ብር';
+      document.getElementById('commValue').textContent = parseFloat(commission).toLocaleString() + ' ብር';
+      box.classList.remove('hidden');
+    } else {
+      box.classList.add('hidden');
+    }
+  }
+
+  // ─── AGREEMENT ────────────────────────────────────────
+  function checkAgreement() {
+    document.getElementById('agreeWarning').classList.add('hidden');
+  }
+
+  // ─── VALIDATION ───────────────────────────────────────
+  function validate() {
+    const name   = document.getElementById('fName').value.trim();
+    const phone  = document.getElementById('fPhone').value.trim();
+    const type   = document.getElementById('fType').value;
+    const kebele = document.getElementById('fKebele').value;
+    const price  = document.getElementById('fPrice').value;
+    const agreed = document.getElementById('agreeCheck').checked;
+
+    if (!name)   { showToast('⚠️ ሙሉ ስምዎን ያስገቡ'); return false; }
+    if (!phone)  { showToast('⚠️ ስልክ ቁጥር ያስገቡ'); return false; }
+    if (!/^0[79]\d{8}$/.test(phone)) { showToast('⚠️ ትክክለኛ ስልክ ቁጥር ያስገቡ'); return false; }
+    if (!type)   { showToast('⚠️ የቤት አይነት ይምረጡ'); return false; }
+    if (!kebele) { showToast('⚠️ አካባቢ ይምረጡ'); return false; }
+    if (!price || parseFloat(price) <= 0) { showToast('⚠️ ዋጋ ያስገቡ'); return false; }
+    if (!agreed) {
+      document.getElementById('agreeWarning').classList.remove('hidden');
+      showToast('⚠️ የኮሚሽን ስምምነቱን ይቀበሉ');
+      return false;
+    }
+    return true;
+  }
+
+  // ─── NAVIGATE: FORM → PREVIEW ─────────────────────────
+function goToPreview() {
+    if (!validate()) return;
+
+    const price = parseFloat(document.getElementById('fPrice').value);
+    const comm  = (price * 0.15).toFixed(2);
+    const email = document.getElementById('fEmail').value.trim();
+
+    document.getElementById('pvName').textContent   = document.getElementById('fName').value.trim();
+    document.getElementById('pvPhone').textContent  = document.getElementById('fPhone').value.trim();
+    document.getElementById('pvEmail').textContent  = email || '— (አልተሞላም)';
+    document.getElementById('pvType').textContent   = document.getElementById('fType').value;
+    document.getElementById('pvKebele').textContent = document.getElementById('fKebele').value;
+    document.getElementById('pvPrice').textContent  = price.toLocaleString() + ' ብር';
+    document.getElementById('pvComm').textContent   = parseFloat(comm).toLocaleString() + ' ብር';
+
+    // preview thumbs
+    const pvThumbs  = document.getElementById('pvThumbs');
+    const pvNoPhoto = document.getElementById('pvNoPhoto');
+    pvThumbs.innerHTML = '';
+    if (photoDataURLs.length === 0) {
+      pvNoPhoto.classList.remove('hidden');
+    } else {
+      pvNoPhoto.classList.add('hidden');
+      photoDataURLs.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src; img.className = 'photo-thumb'; img.alt = 'Photo ' + (i+1);
+        pvThumbs.appendChild(img);
+      });
+    }
+
+    setStep(2);
+    showView('viewPreview');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goBack() {
+    setStep(1);
+    showView('viewForm');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── SUBMIT ───────────────────────────────────────────
+  function submitForm() {
+    const btn = document.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.textContent = '⏳ እየተላከ...';
+
+    const price = parseFloat(document.getElementById('fPrice').value);
+    const payload = {
+      timestamp:  new Date().toISOString(),
+      name:       document.getElementById('fName').value.trim(),
+      phone:      document.getElementById('fPhone').value.trim(),
+      email:      document.getElementById('fEmail').value.trim(),
+      houseType:  document.getElementById('fType').value,
+      kebele:     document.getElementById('fKebele').value,
+      price:      price,
+      commission: parseFloat((price * 0.15).toFixed(2)),
+      photoCount: selectedPhotos.length,
+      agreed:     true,
+    };
+
+    fetch(scriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    .then(() => {
+      setStep(3);
+      showView('viewSuccess');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(() => {
+      // no-cors fetch always succeeds; this path is for network errors
+      setStep(3);
+      showView('viewSuccess');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ─── RESET ────────────────────────────────────────────
+  function resetAll() {
+    ['fName','fPhone','fEmail','fPrice'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fType').value = '';
+    document.getElementById('fKebele').value = '';
+    document.getElementById('agreeCheck').checked = false;
+    document.getElementById('commissionBox').classList.add('hidden');
+    document.getElementById('agreeWarning').classList.add('hidden');
+    selectedPhotos = []; photoDataURLs = [];
+    renderThumbs();
+    setStep(1);
+    showView('viewForm');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── HELPERS ──────────────────────────────────────────
+  function showView(id) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function setStep(n) {
+    const dots = [
+      document.getElementById('s1dot'),
+      document.getElementById('s2dot'),
+      document.getElementById('s3dot'),
+    ];
+    const lines = [
+      document.getElementById('sl1'),
+      document.getElementById('sl2'),
+    ];
+    dots.forEach((d, i) => {
+      if (i + 1 < n) {
+        d.className = 'step-dot bg-teal-500 text-white';
+      } else if (i + 1 === n) {
+        d.className = 'step-dot bg-teal-700 text-white ring-4 ring-teal-200';
+      } else {
+        d.className = 'step-dot bg-gray-200 text-gray-400';
+      }
+    });
+    lines.forEach((l, i) => {
+      l.classList.toggle('done', i + 1 < n);
+    });
+    // hide step bar on success
+    document.getElementById('stepBar').style.display = n === 3 ? 'none' : '';
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+</script>
+</body>
+</html>
